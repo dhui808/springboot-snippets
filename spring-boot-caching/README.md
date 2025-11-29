@@ -2,6 +2,35 @@
     http://localhost:8080/h2-console
     JDBC URL: jdbc:h2:mem:myh2db
 
+    When the Spring Boot application starts, it automatically detects the 
+    src/main/resources/data.sql file (and optionally schema.sql for table creation)
+    and executes its contents against the H2 database.
+
+## Test with curl
+```bash
+curl -v localhost:8080/products
+
+curl -v http://localhost:8080/products/1
+
+curl -v -X POST  \
+  -H "Content-Type: application/json"  \
+  -d '{"name":"Widget","price":9.99,"available":true}'  \
+  http://localhost:8080/products
+
+curl -v -X PUT  \
+  -H "Content-Type: application/json"  \
+  -d '{"name":"Widget Pro","price":19.99,"description":"Updated"}'  \
+  http://localhost:8080/products/5
+
+curl -v -X DELETE http://localhost:8080/products/1
+
+curl -v http://localhost:8080/products/details/1
+
+curl -v http://localhost:8080/products/price-check?productId=1
+
+curl -v -X POST http://localhost:8080/products/clear-cache
+```
+
 ## Enable SLF4J with lombok
 Add the following dependency to your `pom.xml` file:
 ```xml
