@@ -18,9 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 /**
- * Note that @SpringBootTest loads all application components and configuration,
- * so no need to create CacheManger bean and import ProductService. Also no need
- * to use @AutoConfigureCache.
+ * Option 2 for enabling Spring Cache.
+ *
+ * Note that @SpringBootTest loads ALL application components and configuration,
+ * so no need to create CacheManger bean and import ProductService. Also, no need
+ * to use @AutoConfigureCache and @EnableCaching.
  */
 @SpringBootTest
 class ProductService2Test {

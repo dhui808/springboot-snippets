@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -24,18 +26,17 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 /**
- * Option 3 for enabling Spring Cache.
+ * Option 1 for enabling Spring Cache.
  *
- * Here, we define a nested static configuration class within the test class itself,
- * providing a CacheManager bean. @AutoConfigureCache is not used.
- *
- * The test class is annotated with @SpringBootTest to load the relevant configuration and beans only.
- * The @EnableCaching annotation enables Spring cache.
+ * @SpringBootTest annotation indludes the relevant dependency that needs dependency injection, plus
+ * a separate configuration class with @AutoConfigureCache, even though it seems redundant. Actaully,
+ * without it, the caching does not work.
  */
-@SpringBootTest(classes = {ProductService.class, ProductServiceTest.TestConfig.class})
+@SpringBootTest(classes = {ProductService.class,ProductServiceAutoConfigureCacheTest.TestConfig.class})
 @ActiveProfiles("test")
 @EnableCaching
-class ProductServiceTest {
+//@AutoConfigureCache // it does not work if placed here
+class ProductServiceAutoConfigureCacheTest {
 
     @Autowired
     private ProductService productService;
@@ -168,13 +169,10 @@ class ProductServiceTest {
         verify(productRepository, times(2)).findAll();
     }
 
-    @Configuration
+    /**
+     * The annotation @AutoConfigureCache has to be placed on a separate class. Strange.
+     */
+    @AutoConfigureCache
     public static class TestConfig {
-
-        @Bean
-        public CacheManager cacheManager() {
-            // caches used by ProductService
-            return new ConcurrentMapCacheManager("products", "recentProducts");
-        }
     }
 }
