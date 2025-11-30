@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * is meta-annotated with @SpringBootTest(classes = {SpringBootCachingApplication.class}).
  */
 @IntegrationTest2
-class ProductControllerIT2 {
+class ProductController2IT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -55,7 +55,7 @@ class ProductControllerIT2 {
         p.setId(1L);
         when(productRepository.findAll()).thenReturn(List.of(p));
 
-        mockMvc.perform(get("/api/products"))
+        mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].id").value(1));
@@ -69,11 +69,11 @@ class ProductControllerIT2 {
         p.setId(2L);
         when(productRepository.findById(2L)).thenReturn(Optional.of(p));
 
-        mockMvc.perform(get("/api/products/2"))
+        mockMvc.perform(get("/products/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2));
 
-        mockMvc.perform(get("/api/products/2"))
+        mockMvc.perform(get("/products/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2));
 
@@ -92,7 +92,7 @@ class ProductControllerIT2 {
             return arg;
         });
 
-        mockMvc.perform(post("/api/products")
+        mockMvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(toCreate)))
                 .andExpect(status().isOk())
@@ -108,18 +108,18 @@ class ProductControllerIT2 {
             return arg;
         });
 
-        mockMvc.perform(put("/api/products/4")
+        mockMvc.perform(put("/products/5")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(toUpdate)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(4));
+                .andExpect(jsonPath("$.id").value(5));
 
         verify(productRepository, times(2)).save(any(Product.class)); // once for POST, once for PUT
 
         // DELETE
-        mockMvc.perform(delete("/api/products/5"))
+        mockMvc.perform(delete("/products/5"))
                 .andExpect(status().isOk());
 
-        verify(productRepository, times(1)).deleteById(6L);
+        verify(productRepository, times(1)).deleteById(5L);
     }
 }

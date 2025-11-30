@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
@@ -18,9 +17,13 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = {TestConfig.class})
-@ActiveProfiles("test")
-class ProductServiceTest {
+/**
+ * Note that @SpringBootTest loads all application components and configuration,
+ * so no need to create CacheManger bean and import ProductService. Also no need
+ * to use @AutoConfigureCache.
+ */
+@SpringBootTest
+class ProductService2Test {
 
     @Autowired
     private ProductService productService;

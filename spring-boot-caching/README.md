@@ -1,3 +1,6 @@
+## Use @AutoConfigureCache and @EnableCaching
+    Not needed when using @SpringBootTest without attributes.
+
 ## H2 console
     http://localhost:8080/h2-console
     JDBC URL: jdbc:h2:mem:myh2db
@@ -153,6 +156,17 @@ Provides functionality equivalent to the <import/> element in Spring XML.
     "classes" attribute may exclude the necessary Java components (my interpretation).
     One can also include the necessary Java components in the "classes" attribute instead 
     of using @Import.
+
+## Run Integration Tests
+    maven-failsafe-plugin needs to be configured in your `pom.xml` file to run integration tests.
+    Use the following command to run your integration tests:
+    ```bash
+    mvn integration-test
+    mvn verify
+    ```
+
+    Both commands will run unit tests and integration tests, but `mvn verify` will also run the
+    `verify` phase, which includes additional checks and validations after the tests have run.
 
 ## Integration Testing using @SpringBootTest without attributes
     Spring Boot will do component scanning and dependency injection when you use @SpringBootTest 
