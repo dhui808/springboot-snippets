@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 
 /**
  * Note that @SpringBootTest loads all application components and configuration,
- * so no need to create CacheManger bean and import ProductService. Also no need
+ * so no need to create CacheManger bean and import ProductService. Also, no need
  * to use @AutoConfigureCache.
  */
 @SpringBootTest

@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Component scaning and dependency injection will happen since @IntegrationTest2 annotation
+ * Component scanning and dependency injection will happen since @IntegrationTest2 annotation
  * is meta-annotated with @SpringBootTest(classes = {SpringBootCachingApplication.class}).
  */
 @IntegrationTest2
