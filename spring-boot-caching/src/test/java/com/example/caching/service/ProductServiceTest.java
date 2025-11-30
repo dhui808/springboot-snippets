@@ -29,7 +29,9 @@ import static org.mockito.Mockito.*;
  * Here, we define a nested static configuration class within the test class itself,
  * providing a CacheManager bean. @AutoConfigureCache is not used.
  *
- * The test class is annotated with @SpringBootTest to load the relevant configuration and beans only.
+ * The test class is annotated with @SpringBootTest to load the relevant configurations
+ * and beans only.
+ *
  * The @EnableCaching annotation enables Spring cache.
  */
 @SpringBootTest(classes = {ProductService.class, ProductServiceTest.TestConfig.class})
