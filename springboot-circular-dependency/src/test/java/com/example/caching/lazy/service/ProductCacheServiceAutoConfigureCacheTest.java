@@ -1,4 +1,4 @@
-package com.example.caching.service.postconstruct;
+package com.example.caching.lazy.service;
 
 import com.example.caching.Entity.Product;
 import com.example.caching.model.DownstreamResponse;
@@ -24,16 +24,16 @@ import static org.mockito.Mockito.*;
  * a separate configuration class with @AutoConfigureCache, even though it seems redundant. Actaully,
  * without it, the caching does not work.
  */
-@SpringBootTest(classes = {ProductCacheService.class, ProductCacheServiceAutoConfigureCacheTest.TestConfig.class})
+@SpringBootTest(classes = {LazyProductCacheService.class, ProductCacheServiceAutoConfigureCacheTest.TestConfig.class})
 @ActiveProfiles("test")
 @EnableCaching
 //@AutoConfigureCache // it does not work if placed here
 class ProductCacheServiceAutoConfigureCacheTest {
 
     @Autowired
-    private ProductCacheService productCacheService;
+    private LazyProductCacheService productCacheService;
 
-    private ProductService productService;
+    private LazyProductService productService;
     @Autowired
     private CacheManager cacheManager;
 
@@ -42,7 +42,7 @@ class ProductCacheServiceAutoConfigureCacheTest {
 
     @BeforeEach
     void setUp() {
-        productService = mock(ProductService.class);
+        productService = mock(LazyProductService.class);
         productCacheService.setProductService(productService);
 
         // clear caches before each test

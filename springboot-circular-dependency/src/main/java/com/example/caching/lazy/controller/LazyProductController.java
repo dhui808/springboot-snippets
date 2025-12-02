@@ -1,21 +1,20 @@
-// java
-package com.example.caching.controller;
+package com.example.caching.lazy.controller;
 
 import com.example.caching.Entity.Product;
-import com.example.caching.service.postconstruct.ProductService;
+import com.example.caching.lazy.service.LazyProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/lazy/products")
 @Slf4j
-public class ProductController {
+public class LazyProductController {
 
-    private final ProductService productService;
+    private final LazyProductService productService;
 
-    public ProductController(ProductService productService) {
+    public LazyProductController(LazyProductService productService) {
         this.productService = productService;
         log.info("ProductController initialized by Spring IOC");
     }

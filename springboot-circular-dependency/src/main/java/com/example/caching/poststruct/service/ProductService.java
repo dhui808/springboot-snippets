@@ -1,4 +1,4 @@
-package com.example.caching.service.postconstruct;
+package com.example.caching.poststruct.service;
 
 import com.example.caching.Entity.Product;
 import com.example.caching.model.DownstreamResponse;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Use set method (not injection) and @PostConstruct to resolve circular dependency.
+ * Use setter method (not injection) and @PostConstruct to resolve circular dependency.
  */
 @Service
 @Slf4j
@@ -65,6 +65,7 @@ public class ProductService {
             evict = {@CacheEvict(value = "recentProducts", allEntries = true)}
     )
     public Product getProductDetails(Product product) {
+        String guid = productCacheService.getGuidByProductId(product.getId());
         // Logic to fetch detailed product information
         return productRepository.findById(product.getId()).orElse(null);
     }

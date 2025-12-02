@@ -1,22 +1,25 @@
-package com.example.caching.service.postconstruct;
+package com.example.caching.lazy.service;
 
 import com.example.caching.model.DownstreamResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
- * Use set method (not injection) and @PostConstruct to resolve circular dependency.
+ * Use lazy setter injection for both beans to resolve circular dependency.
  */
 @Service
 @Slf4j
-public class ProductCacheService {
+public class LazyProductCacheService {
 
-    private ProductService productService;
+    private LazyProductService productService;
 
-    public void setProductService(final ProductService productService) {
+    @Autowired
+    public void setProductService(@Lazy LazyProductService productService) {
         this.productService = productService;
     }
 

@@ -1,9 +1,8 @@
-package com.example.caching.controller;
+package com.example.caching.lazy.controller;
 
 import com.example.caching.Entity.Product;
 import com.example.caching.annotation.IntegrationTest2;
 import com.example.caching.repository.ProductRepository;
-import tools.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,6 +11,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * is meta-annotated with @SpringBootTest(classes = {SpringBootCachingApplication.class}).
  */
 @IntegrationTest2
-class ProductController2IT {
+class LazyProductController2IT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -55,7 +55,7 @@ class ProductController2IT {
         p.setId(1L);
         when(productRepository.findAll()).thenReturn(List.of(p));
 
-        mockMvc.perform(get("/products"))
+        mockMvc.perform(get("/lazy/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].id").value(1));
@@ -69,7 +69,7 @@ class ProductController2IT {
         p.setId(2L);
         when(productRepository.findById(2L)).thenReturn(Optional.of(p));
 
-        mockMvc.perform(get("/products/2"))
+        mockMvc.perform(get("/lazy/products/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2));
 
@@ -92,7 +92,7 @@ class ProductController2IT {
             return arg;
         });
 
-        mockMvc.perform(post("/products")
+        mockMvc.perform(post("/lazy/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(toCreate)))
                 .andExpect(status().isOk())
@@ -108,7 +108,7 @@ class ProductController2IT {
             return arg;
         });
 
-        mockMvc.perform(put("/products/5")
+        mockMvc.perform(put("/lazy/products/5")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(toUpdate)))
                 .andExpect(status().isOk())
@@ -117,7 +117,7 @@ class ProductController2IT {
         verify(productRepository, times(2)).save(any(Product.class)); // once for POST, once for PUT
 
         // DELETE
-        mockMvc.perform(delete("/products/5"))
+        mockMvc.perform(delete("/lazy/products/5"))
                 .andExpect(status().isOk());
 
         verify(productRepository, times(1)).deleteById(5L);
