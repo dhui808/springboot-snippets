@@ -2,7 +2,7 @@
 package com.example.caching.controller;
 
 import com.example.caching.Entity.Product;
-import com.example.caching.service.ProductService;
+import com.example.caching.service.postconstruct.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

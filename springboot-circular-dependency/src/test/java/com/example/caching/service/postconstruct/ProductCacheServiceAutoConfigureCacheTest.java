@@ -1,4 +1,4 @@
-package com.example.caching.service;
+package com.example.caching.service.postconstruct;
 
 import com.example.caching.Entity.Product;
 import com.example.caching.model.DownstreamResponse;
@@ -13,8 +13,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
