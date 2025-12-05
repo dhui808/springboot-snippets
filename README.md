@@ -1,3 +1,5 @@
+## Spring Mock Mvc can be used for integration testing without mocking
+
 ## How to check what auto-configuration is enabled
 ```
 Enable Spring Boot debugging to see what auto-configuration is applied while running your application/tests:
