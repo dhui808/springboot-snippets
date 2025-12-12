@@ -1,0 +1,14 @@
+<employees>
+	<employee>
+		<id>1</id>
+		<first-name>Jane</first-name>
+		<last-name>Doe</last-name>
+		<sex>f</sex>
+	</employee>
+	<employee>
+		<id>2</id>
+		<first-name>Rick</first-name>
+		<last-name>Nash</last-name>
+		<sex>m</sex>
+	</employee>
+</employees>

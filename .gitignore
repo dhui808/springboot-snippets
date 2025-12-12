@@ -11,4 +11,4 @@
 **/.idea/
 **/.vscode/
 **/.DS_Store
-**/ dependency.txt
+**/dependency*.txt
