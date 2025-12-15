@@ -10,6 +10,6 @@ mvn verify
 
 ## Integration testing error
     java.lang.IllegalStateException: Cache already created.
-    This happens whenrun mvn verify but no erro when running each individual integration test class.
+    This happens when run mvn verify, but no erro when running each individual integration test class.
     Solution: add @AutoconfigureCache to each test class. However, there are cases where 
     @AutoconfigureCache has to be declared in a separate configuration class.
