@@ -10,3 +10,4 @@ mvn verify
 
 ## Integration testing error
     java.lang.IllegalStateException: Cache already created.
+    spring examples note
